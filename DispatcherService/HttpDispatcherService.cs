@@ -37,16 +37,6 @@ namespace DispatcherService
         {
             EventLog.WriteEntry(EventSource,"Opening Http Web service");
             _server.OpenAsync();
-            var busControl = Bus.Factory.CreateUsingRabbitMq(x =>
-            {
-                _host = x.Host(new Uri(ConfigurationManager.AppSettings["RabbitMQHost"]), h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
-            });
-
-            TaskUtil.Await(() => busControl.StartAsync());
         }
 
         public void Stop()
